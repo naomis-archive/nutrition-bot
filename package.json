@@ -1,0 +1,30 @@
+{
+  "name": "nutrition-bot",
+  "version": "0.0.0",
+  "description": "A bot to track my nutrition or something",
+  "main": "prod/index.js",
+  "scripts": {
+    "test": "echo 'no tests yet'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naomi-lgbt/nutrition-bot.git"
+  },
+  "author": "Naomi Carrigan",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/naomi-lgbt/nutrition-bot/issues"
+  },
+  "homepage": "https://github.com/naomi-lgbt/nutrition-bot#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsdoc": "^39.3.6",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.3"
+  }
+}
