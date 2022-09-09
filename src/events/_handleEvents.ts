@@ -1,4 +1,5 @@
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { scheduleCron } from "../modules/scheduleCron";
 import { logHandler } from "../utils/logHandler";
 import { registerCommands } from "../utils/registerCommands";
 
@@ -11,6 +12,7 @@ export const handleEvents = (bot: ExtendedClient) => {
   bot.on("ready", async () => {
     logHandler.log("debug", `Logged in as ${bot.user?.tag}`);
     await registerCommands(bot);
+    await scheduleCron(bot);
   });
 
   bot.on("interactionCreate", async (interaction) => {

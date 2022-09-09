@@ -4,6 +4,7 @@ import { Routes } from "discord-api-types/v10";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 
 import { errorHandler } from "./errorHandler";
+import { logHandler } from "./logHandler";
 
 /**
  * Takes both the commands and contexts, parses the `data` properties as needed,
@@ -31,6 +32,8 @@ export const registerCommands = async (
       Routes.applicationGuildCommands(bot.user.id, bot.env.homeGuild),
       { body: commandData }
     );
+
+    logHandler.log("debug", `Commands registered to ${bot.env.homeGuild}`);
     return true;
   } catch (err) {
     await errorHandler(bot, "slash command register", err);

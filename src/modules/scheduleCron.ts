@@ -3,6 +3,7 @@ import { scheduleJob } from "node-schedule";
 import { InitialNutritionData } from "../config/InitialNutritionData";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { errorHandler } from "../utils/errorHandler";
+import { logHandler } from "../utils/logHandler";
 
 import { generateNutritionEmbed } from "./generateNutritionEmbed";
 
@@ -29,6 +30,8 @@ export const scheduleCron = async (bot: ExtendedClient) => {
     if (!channel || !("send" in channel)) {
       throw new Error("Could not locate notification channel.");
     }
+
+    logHandler.log("debug", "CRON job scheduling!");
 
     // run daily at midnight server time (pst)
     scheduleJob("0 0 0 * * *", async () => {
