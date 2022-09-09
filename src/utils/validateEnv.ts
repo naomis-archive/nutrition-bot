@@ -24,6 +24,10 @@ export const validateEnv = (): ExtendedClient["env"] => {
     throw new Error("OWNER_ID is not defined");
   }
 
+  if (!process.env.NOTIF_CHANNEL) {
+    throw new Error("NOTIF_CHANNEL is not defined");
+  }
+
   return {
     token: process.env.BOT_TOKEN,
     debugHook: new WebhookClient({
@@ -31,5 +35,6 @@ export const validateEnv = (): ExtendedClient["env"] => {
     }),
     homeGuild: process.env.HOME_GUILD,
     ownerId: process.env.OWNER_ID,
+    notifChannel: process.env.NOTIF_CHANNEL,
   };
 };

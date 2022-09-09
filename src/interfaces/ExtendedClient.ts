@@ -9,6 +9,7 @@ export interface ExtendedClient extends Client {
     debugHook: WebhookClient;
     homeGuild: string;
     ownerId: string;
+    notifChannel: string;
   };
   commands: Command[];
   cache: NutritionData;
