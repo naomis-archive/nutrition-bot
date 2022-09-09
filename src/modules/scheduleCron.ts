@@ -34,7 +34,7 @@ export const scheduleCron = async (bot: ExtendedClient) => {
     logHandler.log("debug", "CRON job scheduling!");
 
     // run daily at midnight server time (pst)
-    scheduleJob("0 55 * * * *", async () => {
+    scheduleJob("0 0 0 * * *", async () => {
       const embed = await generateNutritionEmbed(bot);
       await channel.send({
         content: `Hey friends~!\n\nHere is <@!${bot.env.ownerId}>'s nutrition intake for yesterday!`,
