@@ -16,10 +16,20 @@ export const validateEnv = (): ExtendedClient["env"] => {
     throw new Error("DEBUG_HOOK is not defined");
   }
 
+  if (!process.env.HOME_GUILD) {
+    throw new Error("HOME_GUILD is not defined");
+  }
+
+  if (!process.env.OWNER_ID) {
+    throw new Error("OWNER_ID is not defined");
+  }
+
   return {
     token: process.env.BOT_TOKEN,
     debugHook: new WebhookClient({
       url: process.env.DEBUG_HOOK,
     }),
+    homeGuild: process.env.HOME_GUILD,
+    ownerId: process.env.OWNER_ID,
   };
 };
