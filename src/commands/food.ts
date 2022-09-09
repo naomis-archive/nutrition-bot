@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 
 import { Command } from "../interfaces/Command";
+import { fetchNutritionData } from "../modules/fetchNutritionData";
 import { errorHandler } from "../utils/errorHandler";
 
 export const food: Command = {
@@ -59,13 +60,18 @@ export const food: Command = {
       const carbs = interaction.options.getInteger("carbs", true);
       const protein = interaction.options.getInteger("protein", true);
 
-      bot.cache.foodNames.push(name);
-      bot.cache.food.calories += calories;
-      bot.cache.food.fat += fat;
-      bot.cache.food.cholesterol += cholesterol;
-      bot.cache.food.sodium += sodium;
-      bot.cache.food.carbs += carbs;
-      bot.cache.food.protein += protein;
+      const data = await fetchNutritionData(bot);
+
+      data.foodNames.push(name);
+      data.food.calories += calories;
+      data.food.fat += fat;
+      data.food.cholesterol += cholesterol;
+      data.food.sodium += sodium;
+      data.food.carbs += carbs;
+      data.food.protein += protein;
+      data.markModified("foodNames");
+      data.markModified("food");
+      await data.save();
 
       await interaction.editReply({
         content: `Your ${name} meal has been logged!`,

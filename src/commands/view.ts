@@ -10,7 +10,7 @@ export const view: Command = {
     .setDescription("View your daily nutrition intake."),
   run: async (bot, interaction) => {
     try {
-      const embed = generateNutritionEmbed(bot);
+      const embed = await generateNutritionEmbed(bot);
 
       await interaction.editReply({ embeds: [embed] });
     } catch (err) {

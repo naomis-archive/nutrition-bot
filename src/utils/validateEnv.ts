@@ -28,6 +28,10 @@ export const validateEnv = (): ExtendedClient["env"] => {
     throw new Error("NOTIF_CHANNEL is not defined");
   }
 
+  if (!process.env.MONGO_URI) {
+    throw new Error("MONGO_URI is not defined");
+  }
+
   return {
     token: process.env.BOT_TOKEN,
     debugHook: new WebhookClient({
@@ -36,5 +40,6 @@ export const validateEnv = (): ExtendedClient["env"] => {
     homeGuild: process.env.HOME_GUILD,
     ownerId: process.env.OWNER_ID,
     notifChannel: process.env.NOTIF_CHANNEL,
+    mongoUri: process.env.MONGO_URI,
   };
 };

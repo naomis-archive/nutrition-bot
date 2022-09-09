@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "discord.js";
 
 import { Command } from "../interfaces/Command";
+import { fetchNutritionData } from "../modules/fetchNutritionData";
 import { errorHandler } from "../utils/errorHandler";
 
 export const alcohol: Command = {
@@ -9,10 +10,12 @@ export const alcohol: Command = {
     .setDescription("Log the consumption of standard alcoholic beverage."),
   run: async (bot, interaction) => {
     try {
-      bot.cache.alcohol++;
+      const data = await fetchNutritionData(bot);
+      data.alcohol += 1;
+      await data.save();
 
       await interaction.editReply({
-        content: `You have logged ${bot.cache.alcohol} alcoholic beverages today!`,
+        content: `You have logged ${data.alcohol} alcoholic beverages today!`,
       });
     } catch (err) {
       await errorHandler(bot, "alcohol command", err);

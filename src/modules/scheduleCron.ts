@@ -1,10 +1,10 @@
 import { scheduleJob } from "node-schedule";
 
-import { InitialNutritionData } from "../config/InitialNutritionData";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { errorHandler } from "../utils/errorHandler";
 import { logHandler } from "../utils/logHandler";
 
+import { fetchNutritionData } from "./fetchNutritionData";
 import { generateNutritionEmbed } from "./generateNutritionEmbed";
 
 /**
@@ -34,15 +34,15 @@ export const scheduleCron = async (bot: ExtendedClient) => {
     logHandler.log("debug", "CRON job scheduling!");
 
     // run daily at midnight server time (pst)
-    scheduleJob("0 0 0 * * *", async () => {
-      const embed = generateNutritionEmbed(bot);
+    scheduleJob("0 55 * * * *", async () => {
+      const embed = await generateNutritionEmbed(bot);
       await channel.send({
         content: `Hey friends~!\n\nHere is <@!${bot.env.ownerId}>'s nutrition intake for yesterday!`,
         embeds: [embed],
       });
 
-      // eslint-disable-next-line require-atomic-updates
-      bot.cache = InitialNutritionData;
+      const data = await fetchNutritionData(bot);
+      await data.delete();
     });
   } catch (err) {
     await errorHandler(bot, "cron scheduler", err);

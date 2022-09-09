@@ -1,4 +1,6 @@
-export interface NutritionData {
+import { Document } from "mongoose";
+
+export interface NutritionData extends Document {
   food: {
     calories: number;
     fat: number;

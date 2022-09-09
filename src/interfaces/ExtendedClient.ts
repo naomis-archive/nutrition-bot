@@ -1,7 +1,6 @@
 import { Client, WebhookClient } from "discord.js";
 
 import { Command } from "./Command";
-import { NutritionData } from "./NutritionData";
 
 export interface ExtendedClient extends Client {
   env: {
@@ -10,7 +9,7 @@ export interface ExtendedClient extends Client {
     homeGuild: string;
     ownerId: string;
     notifChannel: string;
+    mongoUri: string;
   };
   commands: Command[];
-  cache: NutritionData;
 }
